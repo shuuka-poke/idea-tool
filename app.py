@@ -44,18 +44,21 @@ def index():
 
                 if w != word:
 
-                    if all(unicodedata.category(c).startswith("P") for c in w):
-                        continue
+                      if any(
+                            unicodedata.category(c).startswith(("P", "N"))
+                            for c in w
+                            ):
+                          continue
 
-                    distance = np.linalg.norm(target - model.wv[w])
+                      distance = np.linalg.norm(target - model.wv[w])
 
-                    distances.append((w, distance))
+                      distances.append((w, distance))
 
-            distances.sort(key=lambda x: x[1])
+                      distances.sort(key=lambda x: x[1])
 
-            near_result = random.sample(distances[:50], 5)
+                      near_result = random.sample(distances[:50], 5)
 
-            far_result = random.sample(distances[-50:], 5)
+                      far_result = random.sample(distances[-50:], 5)
 
     return render_template(
         "index.html",
