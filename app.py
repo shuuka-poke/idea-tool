@@ -4,6 +4,7 @@ from gensim.models import Word2Vec
 import numpy as np
 import random
 import unicodedata
+import re
 
 app = Flask(__name__)
 
@@ -42,22 +43,12 @@ def index():
 
             for w in model.wv.index_to_key:
 
-                if w != word:
-                    if all(
-                           unicodedata.category(c)[0] == "P"
-                           for c in w
-                           ):
-                           continue
+                if not re.search(r"[ぁ-んァ-ヶ一-龯]", w):
+                    continue
 
-                    if all(
-                           unicodedata.category(c)[0] == "N"
-                           for c in w
-                           ):
-                         continue
+                distance = np.linalg.norm(target - model.wv[w])
 
-                    distance = np.linalg.norm(target - model.wv[w])
-
-                    distances.append((w, distance))
+                distances.append((w, distance))
 
             distances.sort(key=lambda x: x[1])
 
