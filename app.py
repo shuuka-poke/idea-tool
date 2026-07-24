@@ -3,6 +3,7 @@ from flask import Flask, render_template, request
 from gensim.models import Word2Vec
 import numpy as np
 import random
+import unicodedata
 
 app = Flask(__name__)
 
@@ -42,6 +43,9 @@ def index():
             for w in model.wv.index_to_key:
 
                 if w != word:
+
+                    if all(unicodedata.category(c).startswith("P") for c in w):
+                        continue
 
                     distance = np.linalg.norm(target - model.wv[w])
 
