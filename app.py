@@ -7,7 +7,7 @@ import unicodedata
 
 app = Flask(__name__)
 
-app.secret_key = "好きな文字列を入れてください"
+app.secret_key = "princess"
 PASSWORD = "おひめ"
 
 model = Word2Vec.load("wiki.model")
@@ -59,17 +59,17 @@ def index():
 
                     distances.append((w, distance))
 
-                    distances.sort(key=lambda x: x[1])
+                distances.sort(key=lambda x: x[1])
 
-                    near_result = random.sample(
-                        distances[:50],
-                        min(5, len(distances[:50]))
-                        )
+                near_result = random.sample(
+                    distances[:50],
+                    min(5, len(distances[:50]))
+                    )
 
-                    far_result = random.sample(
-                        distances[-50:],
-                        min(5, len(distances[-50:]))
-                        )
+                far_result = random.sample(
+                    distances[-50:],
+                    min(5, len(distances[-50:]))
+                    )
 
     return render_template(
         "index.html",
