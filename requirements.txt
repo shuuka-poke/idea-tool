@@ -1,5 +1,5 @@
-Flask==3.0.3
-gensim==4.3.3
-numpy==1.26.4
-scipy==1.12.0
+Flask
+gensim
+numpy
+scipy
 janome
