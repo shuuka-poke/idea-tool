@@ -59,17 +59,17 @@ def index():
 
                     distances.append((w, distance))
 
-                distances.sort(key=lambda x: x[1])
+            distances.sort(key=lambda x: x[1])
 
-                near_result = random.sample(
-                    distances[:50],
-                    min(5, len(distances[:50]))
-                    )
+            near_result = random.sample(
+                distances[:50],
+                min(5, len(distances[:50]))
+                )
 
-                far_result = random.sample(
-                    distances[-50:],
-                    min(5, len(distances[-50:]))
-                    )
+            far_result = random.sample(
+                distances[-50:],
+                min(5, len(distances[-50:]))
+                )
 
     return render_template(
         "index.html",
