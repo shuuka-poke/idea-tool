@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>アイデア出しまっ</title>
+</head>
+
+<body>
+
+<h1>アイデア出しまっ</h1>
+
+<form method="post">
+
+<input type="text" name="word" placeholder="単語を入力" value="{{word}}">
+
+<input type="submit" value="検索">
+
+</form>
+
+<hr>
+
+<h2>大体一緒でしょー！☝</h2>
+
+{% for w,d in near_result %}
+
+<p>{{w}}　距離:{{"%.3f"|format(d)}}</p>
+
+{% endfor %}
+
+<hr>
+
+<h2>全然違うでしょー！☝</h2>
+
+{% for w,d in far_result %}
+
+<p>{{w}}　距離:{{"%.3f"|format(d)}}</p>
+
+{% endfor %}
+
+</body>
+
+</html>
