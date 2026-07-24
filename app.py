@@ -45,7 +45,7 @@ def index():
                 if w != word:
 
                       if any(
-                            unicodedata.category(c).startswith(("P", "N"))
+                            unicodedata.category(c)[0] in (("P", "N"))
                             for c in w
                             ):
                           continue
