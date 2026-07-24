@@ -43,22 +43,33 @@ def index():
             for w in model.wv.index_to_key:
 
                 if w != word:
+                    if all(
+                           unicodedata.category(c)[0] == "P"
+                           for c in w
+                           ):
+                           continue
 
-                      if any(
-                            unicodedata.category(c)[0] in (("P", "N"))
-                            for c in w
-                            ):
-                          continue
+                    if all(
+                           unicodedata.category(c)[0] == "N"
+                           for c in w
+                           ):
+                         continue
 
-                      distance = np.linalg.norm(target - model.wv[w])
+                    distance = np.linalg.norm(target - model.wv[w])
 
-                      distances.append((w, distance))
+                    distances.append((w, distance))
 
-                      distances.sort(key=lambda x: x[1])
+                    distances.sort(key=lambda x: x[1])
 
-                      near_result = random.sample(distances[:50], 5)
+                    near_result = random.sample(
+                        distances[:50],
+                        min(5, len(distances[:50]))
+                        )
 
-                      far_result = random.sample(distances[-50:], 5)
+                    far_result = random.sample(
+                        distances[-50:],
+                        min(5, len(distances[-50:]))
+                        )
 
     return render_template(
         "index.html",
